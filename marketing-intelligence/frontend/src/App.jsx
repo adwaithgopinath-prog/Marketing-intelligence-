@@ -14,6 +14,8 @@ import {
   Compass
 } from 'lucide-react';
 
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [apiStatus, setApiStatus] = useState('Checking...');
@@ -32,12 +34,12 @@ export default function App() {
   ]);
 
   useEffect(() => {
-    fetch('http://localhost:8000/health')
+    fetch(`${API_BASE}/health`)
       .then(res => res.json())
       .then(data => setApiStatus(data.status === 'ok' ? 'Online' : 'Degraded'))
       .catch(() => setApiStatus('Offline'));
 
-    fetch('http://localhost:8000/api/v1/projects')
+    fetch(`${API_BASE}/api/v1/projects`)
       .then(res => res.json())
       .then(data => setProjects(Array.isArray(data) ? data : []))
       .catch(err => console.log('Projects endpoint error:', err));
@@ -47,7 +49,7 @@ export default function App() {
     e.preventDefault();
     if (!newProjectName.trim()) return;
     
-    fetch('http://localhost:8000/api/v1/projects', {
+    fetch(`${API_BASE}/api/v1/projects`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: newProjectName })
@@ -108,7 +110,7 @@ export default function App() {
           </div>
           <div className="status-badge">
             <div className="pulse-dot"></div>
-            <span>Backend API: {apiStatus} (Port 8000)</span>
+            <span>Backend API: {apiStatus}</span>
           </div>
         </header>
 

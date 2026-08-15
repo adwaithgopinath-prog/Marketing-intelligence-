@@ -58,9 +58,11 @@ class Settings(BaseSettings):
     TRUSTPILOT_API_KEY: str = ""
 
     # ── CORS ─────────────────────────────────────────────────────
+    # Override via env: CORS_ORIGINS="https://your-app.vercel.app,http://localhost:5173"
     CORS_ORIGINS: List[str] = [
         "http://localhost:3000",
         "http://localhost:5173",
+        "https://*.vercel.app",          # all Vercel preview deployments
     ]
 
     # ── Pipeline ─────────────────────────────────────────────────
