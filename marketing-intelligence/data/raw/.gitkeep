@@ -1,0 +1,3 @@
+Raw ingestion data lives here.
+Organised as: data/raw/<brand_id>/<source>/<timestamp>.jsonl
+All files here are gitignored.

@@ -1,0 +1,26 @@
+# backend/migrations/README
+# ─────────────────────────────────────────────────────────────────────────────
+# Alembic migration directory
+# ─────────────────────────────────────────────────────────────────────────────
+#
+# QUICK REFERENCE
+# ─────────────────
+#
+# Generate a new migration (autogenerate from model diff):
+#   cd backend/
+#   alembic revision --autogenerate -m "describe_your_change"
+#
+# Apply all pending migrations:
+#   alembic upgrade head
+#
+# Rollback one step:
+#   alembic downgrade -1
+#
+# Show current revision:
+#   alembic current
+#
+# Show migration history:
+#   alembic history --verbose
+#
+# ─────────────────────────────────────────────────────────────────────────────
+Generic single-database configuration.

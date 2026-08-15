@@ -1,0 +1,62 @@
+# ── Python ───────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+.env.local
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# ── Environment ──────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── Database ─────────────────────────────────────────────────────
+*.sqlite3
+*.db
+
+# ── Data (large files) ───────────────────────────────────────────
+data/raw/*
+data/processed/*
+data/exports/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/exports/.gitkeep
+
+# ── IDE / Editor ─────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Logs ─────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ── Docker ───────────────────────────────────────────────────────
+.docker/
+
+# ── Frontend ─────────────────────────────────────────────────────
+frontend/node_modules/
+frontend/.next/
+frontend/dist/
+frontend/.nuxt/
+
+# ── Testing ──────────────────────────────────────────────────────
+.pytest_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# ── Playwright ───────────────────────────────────────────────────
+playwright/.auth/
+test-results/
