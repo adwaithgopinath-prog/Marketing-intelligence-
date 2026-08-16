@@ -79,7 +79,16 @@ class Settings(BaseSettings):
     @classmethod
     def parse_cors(cls, v):
         if isinstance(v, str):
-            return [origin.strip() for origin in v.split(",")]
+            v = v.strip()
+            # Handle JSON array string: '["http://...", "http://..."]'
+            if v.startswith("["):
+                import json
+                try:
+                    return json.loads(v)
+                except json.JSONDecodeError:
+                    pass
+            # Handle comma-separated string: "http://...,http://..."
+            return [origin.strip() for origin in v.split(",") if origin.strip()]
         return v
 
 
