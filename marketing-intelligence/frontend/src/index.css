@@ -1,36 +1,51 @@
-/* ── STRICT MINIMAL SAAS WORKSPACE — BLOOM / MOBBIN COMPOSITION ── */
+/* ── MARKETING INTELLIGENCE CENTRALIZED DESIGN SYSTEM ── */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 :root {
-  /* Minimal Color System */
-  --bg-canvas: #F7F7F5;
-  --bg-sidebar: #F1F1EF;
+  /* Surface & Base Colors */
+  --bg-app: #F7F7F5;
   --bg-surface: #FFFFFF;
-  --bg-active: #E5E5E2;
-  --bg-[#F7F7F5]/50: rgba(247, 247, 245, 0.5);
+  --bg-surface-secondary: #F1F1EF;
+  --bg-sidebar: #F2F2F0;
+  --bg-active: #E5E5E3;
+  --bg-hover: #F8F8F6;
+
+  /* Text Colors */
+  --text-main: #171717;
+  --text-sub: #737373;
+  --text-muted: #A1A1A1;
+  --text-inverse: #FFFFFF;
 
   /* Borders & Rules */
-  --border-subtle: #E6E6E3;
+  --border-color: #E5E5E2;
   --border-focus: #5B5CE2;
 
-  /* Typography Colors */
-  --text-[#171717]: #171717;
-  --text-[#737373]: #737373;
-  --text-muted: #A3A3A3;
+  /* Primary Accent & Status Tokens */
+  --accent-primary: #5B5CE2;
+  --accent-light: #EEEEFF;
 
-  /* Status Colors (Used STRICTLY for indicators) */
-  --status-indigo: #5B5CE2;
-  --status-green: #2FA36B;
-  --status-red: #D85C5C;
-  --status-yellow: #C99832;
+  --status-success: #2E9B68;
+  --status-success-bg: #F0FBF5;
 
-  /* Fonts */
+  --status-warning: #C78A24;
+  --status-warning-bg: #FEF9F0;
+
+  --status-critical: #D95757;
+  --status-critical-bg: #FDF2F2;
+
+  /* Typography */
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Geometry */
-  --radius-module: 16px;
+  /* Geometry & Layout */
+  --sidebar-width: 224px;
+  --topbar-height: 64px;
+  --radius-card: 14px;
   --radius-sm: 8px;
+  --radius-pill: 9999px;
+
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.02);
+  --shadow-modal: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
 }
 
 *, *::before, *::after {
@@ -46,29 +61,100 @@ html, body {
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--bg-canvas);
-  color: var(--text-[#171717]);
+  background-color: var(--bg-app);
+  color: var(--text-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Module Box Surface */
-.module-surface {
+/* Card Surface Utility */
+.mi-card {
   background-color: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-module);
-  padding: 24px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: 20px 24px;
+  box-shadow: var(--shadow-subtle);
 }
 
-/* Custom Minimal Scrollbar */
+/* Primary Button */
+.btn-mi-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--accent-primary);
+  color: var(--text-inverse);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+
+.btn-mi-primary:hover {
+  opacity: 0.92;
+}
+
+/* Secondary Button */
+.btn-mi-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-mi-secondary:hover {
+  background-color: var(--bg-hover);
+  border-color: #D8D8D5;
+}
+
+/* Table System */
+.mi-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.mi-table th {
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  border-bottom: 1px solid var(--border-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mi-table td {
+  padding: 14px 16px;
+  font-size: 0.875rem;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.mi-table tr:hover td {
+  background-color: var(--bg-hover);
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-canvas);
+  background: var(--bg-app);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -77,5 +163,15 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #A3A3A3;
+  background: #A1A1A1;
+}
+
+/* Modal Overlay Animation */
+@keyframes fadeInModal {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-modal {
+  animation: fadeInModal 0.15s ease-out forwards;
 }

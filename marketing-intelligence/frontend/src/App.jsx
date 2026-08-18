@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
-import TopNav from './components/TopNav';
-import MainDashboard from './components/MainDashboard';
-import SignalsPage from './components/SignalsPage';
+import TopBar from './components/TopBar';
+import CommandKModal from './components/CommandKModal';
+
+import OverviewView from './components/OverviewView';
+import PerformanceView from './components/PerformanceView';
+import AttributionView from './components/AttributionView';
+import SignalsView from './components/SignalsView';
+import CampaignsView from './components/CampaignsView';
+import ChannelsView from './components/ChannelsView';
+import CustomersView from './components/CustomersView';
+import AIAnalysisView from './components/AIAnalysisView';
+import ReportsView from './components/ReportsView';
+import DataSourcesView from './components/DataSourcesView';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('signals');
+  const [activeTab, setActiveTab] = useState('overview');
+  const [dateRange, setDateRange] = useState('30 days');
   const [apiStatus, setApiStatus] = useState('Checking...');
   const [projects, setProjects] = useState([]);
   const [newProjectName, setNewProjectName] = useState('');
+  const [isCommandKOpen, setIsCommandKOpen] = useState(false);
 
   const [insights] = useState([
     { id: 1, title: 'Positive Sentiment Surge', desc: 'Customer praise for product UI increased by 28% after recent release.', type: 'positive' },
@@ -25,13 +37,13 @@ export default function App() {
   ]);
 
   useEffect(() => {
-    // Backend API Health Check
+    // Health check endpoint
     fetch(`${API_BASE}/health`)
       .then(res => res.json())
       .then(data => setApiStatus(data.status === 'ok' ? 'Online' : 'Degraded'))
       .catch(() => setApiStatus('Offline'));
 
-    // Backend Projects Fetch
+    // Backend Projects endpoint
     fetch(`${API_BASE}/api/v1/projects`)
       .then(res => res.json())
       .then(data => setProjects(Array.isArray(data) ? data : []))
@@ -59,35 +71,72 @@ export default function App() {
     });
   };
 
+  const renderActiveWorkspace = () => {
+    switch (activeTab) {
+      case 'overview':
+        return <OverviewView onNavigate={setActiveTab} />;
+      case 'performance':
+        return <PerformanceView />;
+      case 'attribution':
+        return <AttributionView />;
+      case 'signals':
+        return <SignalsView />;
+      case 'campaigns':
+        return (
+          <CampaignsView 
+            projects={projects}
+            newProjectName={newProjectName}
+            setNewProjectName={setNewProjectName}
+            handleCreateProject={handleCreateProject}
+          />
+        );
+      case 'channels':
+        return <ChannelsView />;
+      case 'customers':
+        return <CustomersView reviews={reviews} />;
+      case 'ai-analysis':
+        return <AIAnalysisView />;
+      case 'reports':
+        return <ReportsView />;
+      case 'datasources':
+      case 'integrations':
+        return <DataSourcesView />;
+      default:
+        return <OverviewView onNavigate={setActiveTab} />;
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-[#f7f7f5] text-[#171717] flex font-sans selection:bg-[#2563eb] selection:text-white">
+    <div className="min-h-screen bg-[#F7F7F5] text-[#171717] flex font-sans selection:bg-[#5B5CE2] selection:text-white">
       
-      {/* 1. PERMANENT LEFT SIDEBAR (220px) */}
+      {/* 1. PERMANENT LEFT SIDEBAR (224px) */}
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* MAIN CONTENT WRAPPER */}
       <div className="flex-1 flex flex-col min-w-0">
         
-        {/* 2. PERMANENT TOP HEADER (64px) */}
-        <TopNav activeTab={activeTab} apiStatus={apiStatus} />
+        {/* 2. PERMANENT TOP BAR (64px) */}
+        <TopBar 
+          activeTab={activeTab} 
+          apiStatus={apiStatus}
+          dateRange={dateRange}
+          setDateRange={setDateRange}
+          onOpenCommandK={() => setIsCommandKOpen(true)}
+        />
 
-        {/* 3. MAIN WORKSPACE */}
+        {/* 3. MAIN PRODUCT WORKSPACE */}
         <main className="flex-1 overflow-y-auto">
-          {activeTab === 'signals' ? (
-            <SignalsPage insights={insights} reviews={reviews} />
-          ) : (
-            <MainDashboard 
-              projects={projects}
-              newProjectName={newProjectName}
-              setNewProjectName={setNewProjectName}
-              handleCreateProject={handleCreateProject}
-              reviews={reviews}
-              insights={insights}
-            />
-          )}
+          {renderActiveWorkspace()}
         </main>
 
       </div>
+
+      {/* 4. GLOBAL COMMAND / SEARCH MODAL (⌘K) */}
+      <CommandKModal 
+        isOpen={isCommandKOpen}
+        onClose={() => setIsCommandKOpen(false)}
+        onSelectTab={setActiveTab}
+      />
 
     </div>
   );
