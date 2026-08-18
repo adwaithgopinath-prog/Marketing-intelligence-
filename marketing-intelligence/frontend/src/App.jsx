@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import SignalsSection from './components/SignalsSection';
-import CampaignAnalyticsSection from './components/CampaignAnalyticsSection';
-import AIAnalysisSection from './components/AIAnalysisSection';
+import HeroSection from './components/HeroSection';
+import TrustSection from './components/TrustSection';
+import ProblemSection from './components/ProblemSection';
+import ProductOverviewSection from './components/ProductOverviewSection';
+import AnalyticsSection from './components/AnalyticsSection';
+import AIIntelligenceSection from './components/AIIntelligenceSection';
+import HowItWorksSection from './components/HowItWorksSection';
+import UseCasesSection from './components/UseCasesSection';
+import FinalCTASection from './components/FinalCTASection';
+import FooterSection from './components/FooterSection';
 import DashboardView from './components/DashboardView';
-import FinalCTA from './components/FinalCTA';
-import Footer from './components/Footer';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
@@ -66,32 +70,44 @@ export default function App() {
   return (
     <div className="bg-[#070a12] text-[#f8fafc] min-h-screen relative font-sans selection:bg-[#4f7cff] selection:text-white">
       
-      {/* Navigation */}
+      {/* 01 — NAVIGATION */}
       <Navbar 
         onLaunchApp={() => setIsAppOpen(!isAppOpen)} 
         isAppOpen={isAppOpen}
         apiStatus={apiStatus}
       />
 
-      {/* Hero Section with Dominant Product Dashboard Visual */}
-      <Hero onLaunchApp={() => setIsAppOpen(true)} />
+      {/* 02 — HERO */}
+      <HeroSection onLaunchApp={() => setIsAppOpen(true)} />
 
-      {/* Section 1: ONE VIEW. EVERY SIGNAL. */}
-      <SignalsSection onLaunchApp={() => setIsAppOpen(true)} />
+      {/* 03 — TRUST / SOCIAL PROOF */}
+      <TrustSection />
 
-      {/* Section 2: UNDERSTAND WHAT CHANGED. */}
-      <CampaignAnalyticsSection />
+      {/* 04 — CORE PROBLEM */}
+      <ProblemSection />
 
-      {/* Section 3: INTELLIGENCE, NOT JUST DATA. */}
-      <AIAnalysisSection onLaunchApp={() => setIsAppOpen(true)} />
+      {/* 05 — PRODUCT OVERVIEW */}
+      <ProductOverviewSection />
 
-      {/* Final Call To Action */}
-      <FinalCTA onLaunchApp={() => setIsAppOpen(true)} />
+      {/* 06 — ANALYTICS */}
+      <AnalyticsSection />
 
-      {/* Footer */}
-      <Footer />
+      {/* 07 — AI INTELLIGENCE */}
+      <AIIntelligenceSection />
 
-      {/* Interactive App Workspace View */}
+      {/* 08 — HOW IT WORKS */}
+      <HowItWorksSection />
+
+      {/* 09 — USE CASES */}
+      <UseCasesSection />
+
+      {/* 10 — FINAL CTA */}
+      <FinalCTASection onLaunchApp={() => setIsAppOpen(true)} />
+
+      {/* 11 — FOOTER */}
+      <FooterSection />
+
+      {/* INTERACTIVE WORKSPACE MODAL */}
       {isAppOpen && (
         <DashboardView 
           apiStatus={apiStatus}
