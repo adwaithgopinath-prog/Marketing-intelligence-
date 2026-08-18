@@ -1,21 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
-import TrustSection from './components/TrustSection';
-import ProblemSection from './components/ProblemSection';
-import ProductOverviewSection from './components/ProductOverviewSection';
-import AnalyticsSection from './components/AnalyticsSection';
-import AIIntelligenceSection from './components/AIIntelligenceSection';
-import HowItWorksSection from './components/HowItWorksSection';
-import UseCasesSection from './components/UseCasesSection';
-import FinalCTASection from './components/FinalCTASection';
-import FooterSection from './components/FooterSection';
-import DashboardView from './components/DashboardView';
+import Sidebar from './components/Sidebar';
+import TopNav from './components/TopNav';
+import MainDashboard from './components/MainDashboard';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export default function App() {
-  const [isAppOpen, setIsAppOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('overview');
   const [apiStatus, setApiStatus] = useState('Checking...');
   const [projects, setProjects] = useState([]);
   const [newProjectName, setNewProjectName] = useState('');
@@ -33,17 +24,17 @@ export default function App() {
   ]);
 
   useEffect(() => {
-    // Health check
+    // Backend API Health Check
     fetch(`${API_BASE}/health`)
       .then(res => res.json())
       .then(data => setApiStatus(data.status === 'ok' ? 'Online' : 'Degraded'))
       .catch(() => setApiStatus('Offline'));
 
-    // Projects list
+    // Backend Projects Fetch
     fetch(`${API_BASE}/api/v1/projects`)
       .then(res => res.json())
       .then(data => setProjects(Array.isArray(data) ? data : []))
-      .catch(err => console.log('Projects endpoint error:', err));
+      .catch(err => console.log('Projects endpoint status:', err));
   }, []);
 
   const handleCreateProject = (e) => {
@@ -61,65 +52,37 @@ export default function App() {
       setNewProjectName('');
     })
     .catch(() => {
-      // Fallback local addition if DB offline
+      // Fallback local addition if backend offline
       setProjects(prev => [...prev, { id: Date.now(), name: newProjectName, created_at: new Date().toISOString() }]);
       setNewProjectName('');
     });
   };
 
   return (
-    <div className="bg-[#070a12] text-[#f8fafc] min-h-screen relative font-sans selection:bg-[#4f7cff] selection:text-white">
+    <div className="min-h-screen bg-[#f7f7f5] text-[#171717] flex font-sans selection:bg-[#2563eb] selection:text-white">
       
-      {/* 01 — NAVIGATION */}
-      <Navbar 
-        onLaunchApp={() => setIsAppOpen(!isAppOpen)} 
-        isAppOpen={isAppOpen}
-        apiStatus={apiStatus}
-      />
+      {/* 1. PERMANENT LEFT SIDEBAR (240px) */}
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
-      {/* 02 — HERO */}
-      <HeroSection onLaunchApp={() => setIsAppOpen(true)} />
+      {/* MAIN CONTENT WRAPPER */}
+      <div className="flex-1 flex flex-col min-w-0">
+        
+        {/* 2. PERMANENT TOP NAVIGATION (60px) */}
+        <TopNav activeTab={activeTab} apiStatus={apiStatus} />
 
-      {/* 03 — TRUST / SOCIAL PROOF */}
-      <TrustSection />
+        {/* 3. MAIN WORKSPACE DASHBOARD (BENTO GRID) */}
+        <main className="flex-1 overflow-y-auto">
+          <MainDashboard 
+            projects={projects}
+            newProjectName={newProjectName}
+            setNewProjectName={setNewProjectName}
+            handleCreateProject={handleCreateProject}
+            reviews={reviews}
+            insights={insights}
+          />
+        </main>
 
-      {/* 04 — CORE PROBLEM */}
-      <ProblemSection />
-
-      {/* 05 — PRODUCT OVERVIEW */}
-      <ProductOverviewSection />
-
-      {/* 06 — ANALYTICS */}
-      <AnalyticsSection />
-
-      {/* 07 — AI INTELLIGENCE */}
-      <AIIntelligenceSection />
-
-      {/* 08 — HOW IT WORKS */}
-      <HowItWorksSection />
-
-      {/* 09 — USE CASES */}
-      <UseCasesSection />
-
-      {/* 10 — FINAL CTA */}
-      <FinalCTASection onLaunchApp={() => setIsAppOpen(true)} />
-
-      {/* 11 — FOOTER */}
-      <FooterSection />
-
-      {/* INTERACTIVE WORKSPACE MODAL */}
-      {isAppOpen && (
-        <DashboardView 
-          apiStatus={apiStatus}
-          projects={projects}
-          newProjectName={newProjectName}
-          setNewProjectName={setNewProjectName}
-          handleCreateProject={handleCreateProject}
-          reviews={reviews}
-          insights={insights}
-          onClose={() => setIsAppOpen(false)}
-        />
-      )}
+      </div>
 
     </div>
   );
