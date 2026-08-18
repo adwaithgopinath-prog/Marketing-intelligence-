@@ -1,7 +1,7 @@
 import React from 'react';
 import { 
   BarChart2, 
-  Activity, 
+  Radio, 
   TrendingUp, 
   Layers, 
   PieChart, 
@@ -10,7 +10,7 @@ import {
   FileText, 
   Sliders, 
   HelpCircle, 
-  Radio
+  Activity
 } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab }) {
@@ -34,10 +34,10 @@ export default function Sidebar({ activeTab, setActiveTab }) {
   ];
 
   return (
-    <aside className="w-[220px] bg-[#f1f1ef] border-r border-[#e5e5e2] h-screen flex flex-col justify-between p-4 sticky top-0 select-none z-20 font-sans">
+    <aside className="w-[220px] bg-[#F1F1EF] border-r border-[#E6E6E3] h-screen flex flex-col justify-between p-4 sticky top-0 select-none z-20 font-sans">
       
       <div>
-        {/* Top Brand */}
+        {/* Logo at top */}
         <div className="px-2 py-3 mb-4">
           <span className="font-sans font-bold text-xs tracking-wider text-[#171717] block">
             MARKETING INTELLIGENCE
@@ -45,7 +45,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
         </div>
 
         {/* Main Navigation */}
-        <div className="space-y-1 mb-4">
+        <div className="space-y-1 mb-3">
           {mainNav.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -53,13 +53,13 @@ export default function Sidebar({ activeTab, setActiveTab }) {
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-xs font-medium transition-all ${
+                className={`w-full h-10 flex items-center gap-3 px-3 rounded-lg text-sm font-medium transition-colors ${
                   isActive 
-                    ? 'bg-white text-[#171717] shadow-sm font-semibold border border-[#e5e5e2]' 
+                    ? 'bg-[#E5E5E2] text-[#171717] font-semibold' 
                     : 'text-[#737373] hover:text-[#171717] hover:bg-black/[0.03]'
                 }`}
               >
-                <Icon size={16} className={isActive ? 'text-[#2563eb]' : 'text-[#737373]'} />
+                <Icon size={16} className="text-[#737373]" />
                 <span>{item.label}</span>
               </button>
             );
@@ -67,13 +67,10 @@ export default function Sidebar({ activeTab, setActiveTab }) {
         </div>
 
         {/* Divider */}
-        <div className="h-[1px] bg-[#e5e5e2] my-3" />
+        <div className="h-[1px] bg-[#E6E6E3] my-3" />
 
         {/* Intelligence Section */}
-        <div className="space-y-1 mb-4">
-          <span className="text-[10px] font-mono text-[#737373] uppercase font-bold tracking-wider px-2 block mb-1.5">
-            INTELLIGENCE
-          </span>
+        <div className="space-y-1 mb-3">
           {intelligenceNav.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -81,13 +78,13 @@ export default function Sidebar({ activeTab, setActiveTab }) {
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-xs font-medium transition-all ${
+                className={`w-full h-10 flex items-center gap-3 px-3 rounded-lg text-sm font-medium transition-colors ${
                   isActive 
-                    ? 'bg-white text-[#171717] shadow-sm font-semibold border border-[#e5e5e2]' 
+                    ? 'bg-[#E5E5E2] text-[#171717] font-semibold' 
                     : 'text-[#737373] hover:text-[#171717] hover:bg-black/[0.03]'
                 }`}
               >
-                <Icon size={16} className={isActive ? 'text-[#2563eb]' : 'text-[#737373]'} />
+                <Icon size={16} className="text-[#737373]" />
                 <span>{item.label}</span>
               </button>
             );
@@ -95,13 +92,10 @@ export default function Sidebar({ activeTab, setActiveTab }) {
         </div>
 
         {/* Divider */}
-        <div className="h-[1px] bg-[#e5e5e2] my-3" />
+        <div className="h-[1px] bg-[#E6E6E3] my-3" />
 
         {/* Workspace Section */}
         <div className="space-y-1">
-          <span className="text-[10px] font-mono text-[#737373] uppercase font-bold tracking-wider px-2 block mb-1.5">
-            WORKSPACE
-          </span>
           {workspaceNav.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.id;
@@ -109,13 +103,13 @@ export default function Sidebar({ activeTab, setActiveTab }) {
               <button
                 key={item.id}
                 onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center gap-3 px-2.5 py-2 rounded-lg text-xs font-medium transition-all ${
+                className={`w-full h-10 flex items-center gap-3 px-3 rounded-lg text-sm font-medium transition-colors ${
                   isActive 
-                    ? 'bg-white text-[#171717] shadow-sm font-semibold border border-[#e5e5e2]' 
+                    ? 'bg-[#E5E5E2] text-[#171717] font-semibold' 
                     : 'text-[#737373] hover:text-[#171717] hover:bg-black/[0.03]'
                 }`}
               >
-                <Icon size={16} className={isActive ? 'text-[#2563eb]' : 'text-[#737373]'} />
+                <Icon size={16} className="text-[#737373]" />
                 <span>{item.label}</span>
               </button>
             );
@@ -124,19 +118,19 @@ export default function Sidebar({ activeTab, setActiveTab }) {
       </div>
 
       {/* Bottom Profile & Help */}
-      <div className="pt-3 border-t border-[#e5e5e2] space-y-2">
-        <button className="w-full flex items-center gap-3 px-2.5 py-1.5 rounded-lg text-xs font-medium text-[#737373] hover:text-[#171717] hover:bg-black/[0.03] transition-all">
+      <div className="pt-3 border-t border-[#E6E6E3] space-y-2">
+        <button className="w-full h-9 flex items-center gap-3 px-3 rounded-lg text-sm font-medium text-[#737373] hover:text-[#171717] hover:bg-black/[0.03] transition-colors">
           <HelpCircle size={16} />
           <span>Help</span>
         </button>
 
-        <div className="flex items-center gap-2.5 px-2.5 py-2 rounded-lg bg-white border border-[#e5e5e2]">
-          <div className="w-7 h-7 rounded-full bg-[#2563eb] text-white flex items-center justify-center font-bold text-xs">
+        <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-white border border-[#E6E6E3]">
+          <div className="w-7 h-7 rounded-full bg-[#E5E5E2] text-[#171717] flex items-center justify-center font-semibold text-xs">
             AT
           </div>
           <div className="flex-1 overflow-hidden">
-            <span className="text-xs font-bold text-[#171717] block truncate">Alex Turner</span>
-            <span className="text-[10px] text-[#737373] block truncate">Growth Lead</span>
+            <span className="text-xs font-semibold text-[#171717] block truncate">Alex Turner</span>
+            <span className="text-[11px] text-[#737373] block truncate">Growth Lead</span>
           </div>
         </div>
       </div>
