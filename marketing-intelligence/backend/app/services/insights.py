@@ -42,25 +42,33 @@ Respond ONLY with a valid JSON array. Each object must have:
 
 class InsightService:
     def __init__(self):
-        self._llm = self._build_llm()
-        logger.info("InsightService ready | provider={} model={}", settings.LLM_PROVIDER, settings.LLM_MODEL)
+        self._llm = None
 
-    def _build_llm(self):
-        if settings.LLM_PROVIDER == "anthropic":
-            from langchain_anthropic import ChatAnthropic
-            return ChatAnthropic(
-                model=settings.LLM_MODEL,
-                api_key=settings.ANTHROPIC_API_KEY,
-                max_tokens=2048,
-            )
-        # default: openai
-        from langchain_openai import ChatOpenAI
-        return ChatOpenAI(
-            model=settings.LLM_MODEL,
-            api_key=settings.OPENAI_API_KEY,
-            temperature=0.3,
-            max_tokens=2048,
-        )
+    def _get_llm(self):
+        if self._llm is not None:
+            return self._llm
+
+        try:
+            if settings.LLM_PROVIDER == "anthropic":
+                from langchain_anthropic import ChatAnthropic
+                self._llm = ChatAnthropic(
+                    model=settings.LLM_MODEL,
+                    api_key=settings.ANTHROPIC_API_KEY,
+                    max_tokens=2048,
+                )
+            else:
+                from langchain_openai import ChatOpenAI
+                self._llm = ChatOpenAI(
+                    model=settings.LLM_MODEL,
+                    api_key=settings.OPENAI_API_KEY,
+                    temperature=0.3,
+                    max_tokens=2048,
+                )
+            logger.info("InsightService LLM ready | provider={} model={}", settings.LLM_PROVIDER, settings.LLM_MODEL)
+            return self._llm
+        except Exception as exc:
+            logger.warning("Failed to initialize LLM provider {}: {}", settings.LLM_PROVIDER, exc)
+            return None
 
     async def generate(self, brand_id: uuid.UUID, texts: List[str]) -> List[Dict[str, Any]]:
         """
@@ -77,8 +85,12 @@ class InsightService:
             HumanMessage(content=f"REVIEWS:\n{review_block}"),
         ]
 
+        llm = self._get_llm()
+        if not llm:
+            return []
+
         try:
-            response  = await self._llm.ainvoke(messages)
+            response  = await llm.ainvoke(messages)
             raw_text  = response.content.strip()
             # Strip markdown fences if present
             if raw_text.startswith("```"):
