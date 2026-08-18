@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import ProductStory from './components/ProductStory';
-import AnalyticsSection from './components/AnalyticsSection';
-import AIInsightsSection from './components/AIInsightsSection';
+import SignalsSection from './components/SignalsSection';
+import CampaignAnalyticsSection from './components/CampaignAnalyticsSection';
+import AIAnalysisSection from './components/AIAnalysisSection';
 import DashboardView from './components/DashboardView';
 import FinalCTA from './components/FinalCTA';
 import Footer from './components/Footer';
@@ -64,36 +64,34 @@ export default function App() {
   };
 
   return (
-    <div className="bg-[#08090c] text-[#f4f4f6] min-h-screen relative font-sans selection:bg-[#ff4800] selection:text-white">
+    <div className="bg-[#070a12] text-[#f8fafc] min-h-screen relative font-sans selection:bg-[#4f7cff] selection:text-white">
       
-      {/* Editorial Navigation */}
+      {/* Navigation */}
       <Navbar 
         onLaunchApp={() => setIsAppOpen(!isAppOpen)} 
         isAppOpen={isAppOpen}
         apiStatus={apiStatus}
       />
 
-      {/* Hero Section */}
-      <div id="product">
-        <Hero onLaunchApp={() => setIsAppOpen(true)} />
-      </div>
+      {/* Hero Section with Dominant Product Dashboard Visual */}
+      <Hero onLaunchApp={() => setIsAppOpen(true)} />
 
-      {/* Product Workflow Story */}
-      <ProductStory />
+      {/* Section 1: ONE VIEW. EVERY SIGNAL. */}
+      <SignalsSection onLaunchApp={() => setIsAppOpen(true)} />
 
-      {/* Analytics Visualizations */}
-      <AnalyticsSection />
+      {/* Section 2: UNDERSTAND WHAT CHANGED. */}
+      <CampaignAnalyticsSection />
 
-      {/* Dramatic AI Insights Engine */}
-      <AIInsightsSection onLaunchApp={() => setIsAppOpen(true)} />
+      {/* Section 3: INTELLIGENCE, NOT JUST DATA. */}
+      <AIAnalysisSection onLaunchApp={() => setIsAppOpen(true)} />
 
-      {/* Final CTA */}
+      {/* Final Call To Action */}
       <FinalCTA onLaunchApp={() => setIsAppOpen(true)} />
 
-      {/* Minimal Footer */}
+      {/* Footer */}
       <Footer />
 
-      {/* Full Live Dashboard Modal View */}
+      {/* Interactive App Workspace View */}
       {isAppOpen && (
         <DashboardView 
           apiStatus={apiStatus}

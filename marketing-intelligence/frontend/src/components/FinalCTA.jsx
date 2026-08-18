@@ -1,59 +1,60 @@
 import React from 'react';
-import { ArrowRight, Sparkles, LayoutDashboard, Zap } from 'lucide-react';
+import { ArrowRight, LayoutDashboard, Sparkles } from 'lucide-react';
 
 export default function FinalCTA({ onLaunchApp }) {
   return (
-    <section className="py-32 relative overflow-hidden bg-[#050608] border-t border-white/10">
-      {/* Background Watermark */}
-      <div className="bg-watermark top-10 left-1/2 transform -translate-x-1/2 opacity-20 select-none text-center">
-        DECISIONS
-      </div>
+    <section className="py-24 relative overflow-hidden bg-[#070a12] border-t border-white/[0.08]">
+      
+      {/* Background Lighting */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[#4f7cff]/15 rounded-full filter blur-[120px] pointer-events-none" />
 
-      <div className="editorial-container relative z-10 text-center max-w-5xl mx-auto">
-        {/* Editorial Badge */}
-        <div className="editorial-badge mb-8 mx-auto">
-          <span className="badge-dot" />
-          <span>START FREE TRIAL TODAY</span>
+      <div className="site-container relative z-10 text-center max-w-4xl mx-auto">
+        
+        {/* Eyebrow */}
+        <div className="eyebrow-badge mb-6 mx-auto">
+          <Sparkles size={13} />
+          <span>START YOUR FREE TRIAL</span>
         </div>
 
-        {/* Large Editorial Headline */}
-        <h2 className="font-display font-extrabold text-5xl sm:text-7xl xl:text-8xl uppercase text-white tracking-tighter leading-[0.9] mb-8">
-          STOP GUESSING. <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff4800] via-[#ff7700] to-amber-400">
-            START KNOWING.
+        {/* Headline */}
+        <h2 className="font-sans font-extrabold text-3xl sm:text-5xl text-white tracking-tight leading-tight mb-6">
+          CONNECT YOUR DATA IN MINUTES. <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#5ee7ff] to-[#4f7cff]">
+            GET INTELLIGENCE INSTANTLY.
           </span>
         </h2>
 
         {/* Subtext */}
-        <p className="font-sans text-xl sm:text-2xl text-gray-300 max-w-2xl mx-auto font-normal leading-relaxed mb-12">
-          Turn your marketing data into high-confidence strategic decisions you can act on instantly.
+        <p className="font-sans text-base sm:text-lg text-gray-300 max-w-xl mx-auto font-normal leading-relaxed mb-8">
+          Unify your campaigns, customer reviews, and competitor signals into one real-time product interface.
         </p>
 
-        {/* Call to Action Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-5">
+        {/* Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-4">
           <button 
             onClick={onLaunchApp}
-            className="btn-editorial-primary text-lg py-5 px-10 flex items-center gap-3 shadow-2xl shadow-[#ff4800]/40"
+            className="btn-primary-blue text-base py-3.5 px-8 flex items-center gap-2"
           >
-            <LayoutDashboard size={22} />
-            <span>Launch Live App Free</span>
-            <ArrowRight size={20} />
+            <LayoutDashboard size={18} />
+            <span>Launch Product Free</span>
+            <ArrowRight size={16} />
           </button>
 
           <a 
-            href="#product" 
-            className="btn-editorial-secondary text-lg py-5 px-10"
+            href="#hero"
+            className="btn-secondary-dark text-base py-3.5 px-8"
           >
-            <span>Explore Intelligence Engine</span>
+            <span>Back to top</span>
           </a>
         </div>
 
-        {/* Guarantee bar */}
-        <div className="mt-16 pt-8 border-t border-white/10 flex flex-wrap items-center justify-center gap-8 text-xs font-mono text-gray-400">
+        {/* Trust pill */}
+        <div className="mt-12 text-xs font-mono text-gray-400">
           <span>✓ NO CREDIT CARD REQUIRED</span>
-          <span>✓ 14-DAY FULL ACCESS</span>
-          <span>✓ REAL-TIME RENDER BACKEND CONNECTED</span>
+          <span className="mx-3">•</span>
+          <span>✓ INSTANT RENDER BACKEND SYNC</span>
         </div>
+
       </div>
     </section>
   );
