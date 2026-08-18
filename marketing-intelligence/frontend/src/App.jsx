@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import TopNav from './components/TopNav';
 import MainDashboard from './components/MainDashboard';
+import SignalsPage from './components/SignalsPage';
 
 const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('overview');
+  const [activeTab, setActiveTab] = useState('signals');
   const [apiStatus, setApiStatus] = useState('Checking...');
   const [projects, setProjects] = useState([]);
   const [newProjectName, setNewProjectName] = useState('');
@@ -61,25 +62,29 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#f7f7f5] text-[#171717] flex font-sans selection:bg-[#2563eb] selection:text-white">
       
-      {/* 1. PERMANENT LEFT SIDEBAR (240px) */}
+      {/* 1. PERMANENT LEFT SIDEBAR (220px) */}
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
 
       {/* MAIN CONTENT WRAPPER */}
       <div className="flex-1 flex flex-col min-w-0">
         
-        {/* 2. PERMANENT TOP NAVIGATION (60px) */}
+        {/* 2. PERMANENT TOP HEADER (64px) */}
         <TopNav activeTab={activeTab} apiStatus={apiStatus} />
 
-        {/* 3. MAIN WORKSPACE DASHBOARD (BENTO GRID) */}
+        {/* 3. MAIN WORKSPACE */}
         <main className="flex-1 overflow-y-auto">
-          <MainDashboard 
-            projects={projects}
-            newProjectName={newProjectName}
-            setNewProjectName={setNewProjectName}
-            handleCreateProject={handleCreateProject}
-            reviews={reviews}
-            insights={insights}
-          />
+          {activeTab === 'signals' ? (
+            <SignalsPage insights={insights} reviews={reviews} />
+          ) : (
+            <MainDashboard 
+              projects={projects}
+              newProjectName={newProjectName}
+              setNewProjectName={setNewProjectName}
+              handleCreateProject={handleCreateProject}
+              reviews={reviews}
+              insights={insights}
+            />
+          )}
         </main>
 
       </div>
