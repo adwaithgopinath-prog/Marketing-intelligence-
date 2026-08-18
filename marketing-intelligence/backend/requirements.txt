@@ -1,42 +1,42 @@
 # ── Core Framework ──────────────────────────────────────────────
-fastapi==0.111.0
-uvicorn[standard]==0.29.0
+fastapi>=0.111.0
+uvicorn[standard]>=0.29.0
 pydantic>=2.7.4
-pydantic-settings==2.2.1
+pydantic-settings>=2.2.1
 
 # ── Database ─────────────────────────────────────────────────────
-sqlalchemy==2.0.30
-alembic==1.13.1
-asyncpg==0.29.0
-psycopg2-binary==2.9.9
+sqlalchemy>=2.0.30
+alembic>=1.13.1
+asyncpg>=0.29.0
+psycopg2-binary>=2.9.9
 
 # ── HTTP ─────────────────────────────────────────────────────────
-httpx==0.27.0
-aiohttp==3.9.5
+httpx>=0.27.0
+aiohttp>=3.9.5
 
 # ── NLP / Sentiment (lightweight) ───────────────────────────────
-vaderSentiment==3.3.2
-scikit-learn==1.5.0
-numpy==1.26.4
-pandas==2.2.2
+vaderSentiment>=3.3.2
+scikit-learn>=1.5.0
+numpy>=1.26.4
+pandas>=2.2.2
 
 # ── AI / LLM ─────────────────────────────────────────────────────
-openai==1.30.1
-anthropic==0.28.0
+openai>=1.30.0
+anthropic>=0.28.0
 
 # ── Auth / Security ──────────────────────────────────────────────
-python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
-python-multipart==0.0.9
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+python-multipart>=0.0.9
 
 # ── Observability ────────────────────────────────────────────────
-loguru==0.7.2
-prometheus-fastapi-instrumentator==7.0.0
+loguru>=0.7.2
+prometheus-fastapi-instrumentator>=7.0.0
 
 # ── Utilities ────────────────────────────────────────────────────
-python-dotenv==1.0.1
-tenacity==8.3.0
-orjson==3.10.3
+python-dotenv>=1.0.1
+tenacity>=8.3.0
+orjson>=3.10.3
 langchain-core>=0.3.0
 langchain-openai>=0.2.0
 langchain-anthropic>=0.2.0
